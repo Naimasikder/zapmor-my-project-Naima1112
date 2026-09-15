@@ -8,3 +8,5 @@ Route::get('/', function () {
 });
 
 Route::post('/appointments', [AppointmentController::class, 'store']);
+
+Route::patch('/appointments/{appointment}/status', [AppointmentController::class, 'updateStatus']);

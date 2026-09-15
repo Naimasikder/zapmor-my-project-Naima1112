@@ -25,4 +25,20 @@ class AppointmentController extends Controller
             'appointment' => $appointment,
         ], 201);
     }
+
+    public function updateStatus(Request $request, Appointment $appointment)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:pending,confirmed,completed,cancelled',
+        ]);
+
+        $appointment->update([
+            'status' => $validated['status'],
+        ]);
+
+        return response()->json([
+            'message' => 'Appointment status updated successfully',
+            'appointment' => $appointment,
+        ]);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class AppointmentController extends Controller
 {
@@ -13,7 +14,17 @@ class AppointmentController extends Controller
             'provider_id' => 'required|exists:providers,id',
             'service_id' => 'required|exists:services,id',
             'appointment_date' => 'required|date',
-            'appointment_time' => 'required',
+            'appointment_time' => [
+                'required',
+                'date_format:H:i',
+                Rule::unique('appointments', 'appointment_time')
+                    ->where(function ($query) use ($request) {
+                        return $query
+                            ->where('provider_id', $request->provider_id)
+                            ->where('appointment_date', $request->appointment_date)
+                            ->where('status', '!=', 'cancelled');
+                    }),
+            ],
             'notes' => 'nullable|string',
         ]);
 

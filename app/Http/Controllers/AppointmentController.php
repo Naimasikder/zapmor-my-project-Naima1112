@@ -10,13 +10,14 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
             'provider_id' => 'required|exists:providers,id',
             'service_id' => 'required|exists:services,id',
             'appointment_date' => 'required|date',
             'appointment_time' => 'required',
             'notes' => 'nullable|string',
         ]);
+
+        $validated['user_id'] = auth()->id();
 
         $appointment = Appointment::create($validated);
 

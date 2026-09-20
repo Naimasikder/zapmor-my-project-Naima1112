@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Zapmor - Book Appointment</title>
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -19,7 +23,7 @@
             color: #10182f;
         }
 
-        /* NAVBAR */
+        /* ================= NAVBAR ================= */
 
         .navbar {
             height: 90px;
@@ -82,8 +86,7 @@
             border-radius: 30px;
         }
 
-
-        /* BOOKING SECTION */
+        /* ================= BOOKING SECTION ================= */
 
         .booking-section {
             min-height: calc(100vh - 90px);
@@ -115,8 +118,7 @@
             margin-bottom: 45px;
         }
 
-
-        /* BOOKING CARD */
+        /* ================= BOOKING CARD ================= */
 
         .booking-card {
             width: 780px;
@@ -137,8 +139,7 @@
                 0 15px 45px rgba(42, 57, 120, 0.10);
         }
 
-
-        /* FORM */
+        /* ================= FORM ================= */
 
         .form-grid {
             display: grid;
@@ -223,8 +224,47 @@
             resize: vertical;
         }
 
+        /* ================= SUCCESS MESSAGE ================= */
 
-        /* BUTTON */
+        .success-message {
+            background: #d1fae5;
+
+            color: #065f46;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+
+            font-weight: 600;
+        }
+
+        .view-appointment-btn {
+            display: inline-block;
+
+            margin-top: 12px;
+
+            padding: 10px 18px;
+
+            background: #101b3c;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+        .view-appointment-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* ================= BUTTON ================= */
 
         .confirm-btn {
             width: 100%;
@@ -252,20 +292,23 @@
             cursor: pointer;
         }
 
-
-        /* MOBILE */
+        /* ================= MOBILE ================= */
 
         @media (max-width: 700px) {
 
             .navbar {
                 height: auto;
+
                 padding: 20px;
+
                 flex-direction: column;
+
                 gap: 20px;
             }
 
             .nav-links {
                 flex-wrap: wrap;
+
                 justify-content: center;
             }
 
@@ -280,13 +323,18 @@
             h1 {
                 font-size: 32px;
             }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <!-- NAVBAR -->
+
+    <!-- ================= NAVBAR ================= -->
 
     <nav class="navbar">
 
@@ -296,15 +344,25 @@
 
         <div class="nav-links">
 
-            <a href="#">Home</a>
+            <a href="#">
+                Home
+            </a>
 
-            <a href="#">Services ▼</a>
+            <a href="#">
+                Services ▼
+            </a>
 
-            <a href="#">Book Now</a>
+            <a href="#">
+                Book Now
+            </a>
 
-            <a href="#">About</a>
+            <a href="#">
+                About
+            </a>
 
-            <a href="#">Contact</a>
+            <a href="#">
+                Contact
+            </a>
 
             <a href="#" class="login-btn">
                 Login
@@ -319,7 +377,7 @@
     </nav>
 
 
-    <!-- BOOKING SECTION -->
+    <!-- ================= BOOKING SECTION ================= -->
 
     <section class="booking-section">
 
@@ -333,67 +391,123 @@
 
 
         <div class="booking-card">
+
+
+            <!-- ================= SUCCESS MESSAGE ================= -->
+
             @if(session('success'))
-    <div style="background:#d1fae5; color:#065f46; padding:15px; border-radius:10px; margin-bottom:20px;">
-        {{ session('success') }}
-    </div>
-@endif
 
-@if($errors->any())
-    <div style="background:#fee2e2; color:#991b1b; padding:15px; border-radius:10px; margin-bottom:20px;">
-        <ul style="margin:0; padding-left:20px;">
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+                <div class="success-message">
 
-            <form method="POST" action="{{ route('booking.store') }}">
-        @csrf
+                    <div>
+                        {{ session('success') }}
+                    </div>
+
+                    <a
+                        href="{{ route('appointments.index') }}"
+                        class="view-appointment-btn"
+                    >
+                        Appointments
+                    </a>
+
+                </div>
+
+            @endif
+
+
+            <!-- ================= VALIDATION ERRORS ================= -->
+
+            @if($errors->any())
+
+                <div style="
+                    background:#fee2e2;
+                    color:#991b1b;
+                    padding:15px;
+                    border-radius:10px;
+                    margin-bottom:20px;
+                ">
+
+                    <ul style="
+                        margin:0;
+                        padding-left:20px;
+                    ">
+
+                        @foreach($errors->all() as $error)
+
+                            <li>
+                                {{ $error }}
+                            </li>
+
+                        @endforeach
+
+                    </ul>
+
+                </div>
+
+            @endif
+
+
+            <!-- ================= FORM ================= -->
+
+            <form
+                method="POST"
+                action="{{ route('booking.store') }}"
+            >
+
+                @csrf
+
 
                 <div class="form-grid">
 
-                    <!-- FULL NAME -->
 
-                    <div class="form-group" style="position: relative;">
+                    <!-- ================= FULL NAME ================= -->
 
-    <label>
-        Full Name <span>*</span>
-    </label>
+                    <div
+                        class="form-group"
+                        style="position: relative;"
+                    >
 
-    <input
-        type="text"
-        id="customerName"
-        name="customer_name"
-        autocomplete="off"
-        placeholder="Search your name"
-        required
-    >
+                        <label>
+                            Full Name <span>*</span>
+                        </label>
 
-    <div id="customerSuggestions"
-         style="
-            position: absolute;
-            top: 78px;
-            left: 0;
-            width: 100%;
-            background: white;
-            border: 1px solid #dfe4ef;
-            border-radius: 10px;
-            display: none;
-            z-index: 1000;
-            max-height: 180px;
-            overflow-y: auto;
-         ">
-    </div>
+                        <input
+                            type="text"
+                            id="customerName"
+                            name="customer_name"
+                            autocomplete="off"
+                            placeholder="Search your name"
+                            required
+                        >
 
-    <small>
-        Search your name if you have booked before.
-    </small>
 
-</div>
+                        <div
+                            id="customerSuggestions"
+                            style="
+                                position: absolute;
+                                top: 78px;
+                                left: 0;
+                                width: 100%;
+                                background: white;
+                                border: 1px solid #dfe4ef;
+                                border-radius: 10px;
+                                display: none;
+                                z-index: 1000;
+                                max-height: 180px;
+                                overflow-y: auto;
+                            "
+                        >
+                        </div>
 
-                    <!-- EMAIL -->
+
+                        <small>
+                            Search your name if you have booked before.
+                        </small>
+
+                    </div>
+
+
+                    <!-- ================= EMAIL ================= -->
 
                     <div class="form-group">
 
@@ -402,17 +516,17 @@
                         </label>
 
                         <input
-    type="email"
-    id="customerEmail"
-    name="email"
-    placeholder="Your email"
-    required
->
+                            type="email"
+                            id="customerEmail"
+                            name="email"
+                            placeholder="Your email"
+                            required
+                        >
 
                     </div>
 
 
-                    <!-- SERVICE TYPE -->
+                    <!-- ================= SERVICE TYPE ================= -->
 
                     <div class="form-group">
 
@@ -420,14 +534,14 @@
                             Service Type <span>*</span>
                         </label>
 
-                        <select id="serviceType" name="service_type" required>
+                        <select
+                            id="serviceType"
+                            name="service_type"
+                            required
+                        >
 
                             <option value="">
                                 Select...
-                            </option>
-
-                            <option value="doctor">
-                                Doctor
                             </option>
 
                             <option value="parlor">
@@ -439,7 +553,7 @@
                     </div>
 
 
-                    <!-- SPECIFIC SERVICE -->
+                    <!-- ================= SPECIFIC SERVICE ================= -->
 
                     <div class="form-group">
 
@@ -447,41 +561,64 @@
                             Specific Service <span>*</span>
                         </label>
 
-                        <select id="specificService" name="service_id" required>
-    <option value="">Select a service</option>
+                        <select
+                            id="specificService"
+                            name="service_id"
+                            required
+                        >
 
-    @foreach($services as $service)
-        <option value="{{ $service->service_id }}">
-            {{ $service->service_name }}
-        </option>
-    @endforeach
-</select>
+                            <option value="">
+                                Select a service
+                            </option>
+
+                            @foreach($services as $service)
+
+                                <option value="{{ $service->service_id }}">
+                                    {{ $service->service_name }}
+                                </option>
+
+                            @endforeach
+
+                        </select>
 
                     </div>
 
 
-                    <!-- PROVIDER -->
+                    <!-- ================= PREFERRED PARLOR ================= -->
 
                     <div class="form-group">
 
                         <label>
-                            Preferred Provider
+                            Preferred Parlor
                         </label>
 
-                         <select name="parlor_id">
-    <option value="">Any Available</option>
+                        <select
+                            name="parlor_id"
+                            id="parlorSelect"
+                        >
 
-    @foreach($parlors as $parlor)
-        <option value="{{ $parlor->parlor_id }}">
-            {{ $parlor->name }}
-        </option>
-    @endforeach
-</select>
+                            <option value="">
+                                Any Available
+                            </option>
+
+
+                            @foreach($parlors as $parlor)
+
+                                <option
+                                    value="{{ $parlor->parlor_id }}"
+                                    data-services="{{ $parlor->services->pluck('service_id')->implode(',') }}"
+                                >
+                                    {{ $parlor->name }}
+                                </option>
+
+                            @endforeach
+
+                        </select>
 
                     </div>
 
 
-                    <!-- DATE -->
+                    <!-- ================= DATE & TIME ================= -->
 
                     <div class="form-group">
 
@@ -489,14 +626,18 @@
                             Date & Time <span>*</span>
                         </label>
 
-                        <input type="datetime-local" name="appointment_datetime" required>
+                        <input
+                            type="datetime-local"
+                            name="appointment_datetime"
+                            required
+                        >
 
                     </div>
 
                 </div>
 
 
-                <!-- NOTES -->
+                <!-- ================= NOTES ================= -->
 
                 <div class="form-group notes">
 
@@ -504,93 +645,256 @@
                         Additional Notes
                     </label>
 
-                    <textarea name="note"></textarea>
+                    <textarea
+                        name="note"
+                        placeholder="Any additional information..."
+                    ></textarea>
 
                 </div>
 
 
-                <!-- BUTTON -->
+                <!-- ================= BUTTON ================= -->
 
-                <button type="submit" class="confirm-btn">
+                <button
+                    type="submit"
+                    class="confirm-btn"
+                >
                     Confirm Booking
                 </button>
 
+
             </form>
+
 
         </div>
 
     </section>
 
 
-    <!-- JAVASCRIPT -->
+    <!-- ================= JAVASCRIPT ================= -->
+
     <script>
-    const customerName = document.getElementById('customerName');
-    const customerEmail = document.getElementById('customerEmail');
-    const customerSuggestions = document.getElementById('customerSuggestions');
 
-    customerName.addEventListener('input', function () {
 
-        const search = this.value.trim();
+        /* =========================================
+           CUSTOMER SEARCH
+        ========================================= */
 
-        if (search.length < 2) {
-            customerSuggestions.style.display = 'none';
-            customerSuggestions.innerHTML = '';
-            return;
-        }
+        const customerName =
+            document.getElementById('customerName');
 
-        fetch("{{ route('customer.search') }}?search=" + encodeURIComponent(search))
+        const customerEmail =
+            document.getElementById('customerEmail');
+
+        const customerSuggestions =
+            document.getElementById('customerSuggestions');
+
+
+        customerName.addEventListener('input', function () {
+
+            const search =
+                this.value.trim();
+
+
+            if (search.length < 2) {
+
+                customerSuggestions.style.display = 'none';
+
+                customerSuggestions.innerHTML = '';
+
+                return;
+
+            }
+
+
+            fetch(
+                "{{ route('customer.search') }}?search="
+                + encodeURIComponent(search)
+            )
+
             .then(response => response.json())
+
             .then(customers => {
 
                 customerSuggestions.innerHTML = '';
 
+
                 if (customers.length === 0) {
+
                     customerSuggestions.style.display = 'none';
+
                     return;
+
                 }
+
 
                 customers.forEach(customer => {
 
-                    const item = document.createElement('div');
+                    const item =
+                        document.createElement('div');
+
 
                     item.style.padding = '12px 14px';
+
                     item.style.cursor = 'pointer';
-                    item.style.borderBottom = '1px solid #eeeeee';
+
+                    item.style.borderBottom =
+                        '1px solid #eeeeee';
+
 
                     item.innerHTML = `
                         <strong>${customer.customer_name}</strong><br>
                         <small>${customer.email}</small>
                     `;
 
-                    item.addEventListener('click', function () {
 
-                        customerName.value = customer.customer_name;
-                        customerEmail.value = customer.email;
+                    item.addEventListener(
+                        'click',
+                        function () {
 
-                        customerSuggestions.style.display = 'none';
-                    });
+                            customerName.value =
+                                customer.customer_name;
+
+                            customerEmail.value =
+                                customer.email;
+
+                            customerSuggestions.style.display =
+                                'none';
+
+                        }
+                    );
+
 
                     customerSuggestions.appendChild(item);
+
                 });
 
-                customerSuggestions.style.display = 'block';
+
+                customerSuggestions.style.display =
+                    'block';
+
             })
+
             .catch(error => {
-                console.error('Customer search error:', error);
+
+                console.error(
+                    'Customer search error:',
+                    error
+                );
+
             });
-    });
 
-    document.addEventListener('click', function (event) {
+        });
 
-        if (!customerName.contains(event.target) &&
-            !customerSuggestions.contains(event.target)) {
 
-            customerSuggestions.style.display = 'none';
-        }
-    });
-</script>
+        /* =========================================
+           CLOSE CUSTOMER SUGGESTIONS
+        ========================================= */
 
-    
+        document.addEventListener(
+            'click',
+            function (event) {
+
+                if (
+                    !customerName.contains(event.target) &&
+                    !customerSuggestions.contains(event.target)
+                ) {
+
+                    customerSuggestions.style.display =
+                        'none';
+
+                }
+
+            }
+        );
+
+
+        /* =========================================
+           SERVICE → PARLOR FILTER
+        ========================================= */
+
+        const serviceSelect =
+            document.getElementById('specificService');
+
+        const parlorSelect =
+            document.getElementById('parlorSelect');
+
+
+        serviceSelect.addEventListener(
+            'change',
+            function () {
+
+                const selectedService =
+                    this.value;
+
+
+                const options =
+                    parlorSelect.querySelectorAll('option');
+
+
+                options.forEach(option => {
+
+
+                    /* Any Available */
+
+                    if (option.value === '') {
+
+                        option.style.display = '';
+
+                        return;
+
+                    }
+
+
+                    const services =
+                        option.dataset.services
+                            ? option.dataset.services.split(',')
+                            : [];
+
+
+                    /* No service selected */
+
+                    if (!selectedService) {
+
+                        option.style.display = '';
+
+                        return;
+
+                    }
+
+
+                    /* Service available in parlor */
+
+                    if (
+                        services.includes(selectedService)
+                    ) {
+
+                        option.style.display = '';
+
+                    }
+
+
+                    /* Service not available */
+
+                    else {
+
+                        option.style.display = 'none';
+
+                    }
+
+                });
+
+
+                /* Reset selected parlor */
+
+                parlorSelect.value = '';
+
+            }
+        );
+
+    </script>
+
 
 </body>
+
 </html>

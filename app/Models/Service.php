@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Service extends Model
 {
-    protected $primaryKey = 'service_id';
-
     protected $fillable = [
-        'service_name',
-        'starting_price',
+        'name',
+        'service_type',
         'description',
+        'duration',
+        'price',
+        'status',
     ];
 
     public function parlors(): BelongsToMany

@@ -7,37 +7,32 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Appointment extends Model
 {
-    protected $primaryKey = 'appointment_id';
-
     protected $fillable = [
-        'customer_name',
-        'email',
-        'parlor_id',
+        'user_id',
+        'provider_id',
         'service_id',
-        'appointment_datetime',
-        'note',
+        'appointment_date',
+        'appointment_time',
+        'notes',
         'status',
     ];
 
     protected $casts = [
-        'appointment_datetime' => 'datetime',
+        'appointment_date' => 'date',
     ];
 
-    public function parlor(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(
-            Parlor::class,
-            'parlor_id',
-            'parlor_id'
-        );
+        return $this->belongsTo(User::class);
+    }
+
+    public function provider(): BelongsTo
+    {
+        return $this->belongsTo(Provider::class);
     }
 
     public function service(): BelongsTo
     {
-        return $this->belongsTo(
-            Service::class,
-            'service_id',
-            'service_id'
-        );
+        return $this->belongsTo(Service::class);
     }
 }

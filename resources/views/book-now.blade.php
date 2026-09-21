@@ -2,15 +2,12 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Zapmor - Book Appointment</title>
 
     <style>
-
         * {
             margin: 0;
             padding: 0;
@@ -28,26 +25,17 @@
         .navbar {
             height: 90px;
             background: white;
-
             display: flex;
             align-items: center;
             justify-content: space-between;
-
             padding: 0 12%;
-
             border-bottom: 1px solid #eeeeee;
         }
 
         .logo {
             font-size: 28px;
             font-weight: 800;
-
-            background: linear-gradient(
-                90deg,
-                #286eff,
-                #c127e8
-            );
-
+            background: linear-gradient(90deg, #286eff, #c127e8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -73,16 +61,9 @@
         }
 
         .app-btn {
-            background: linear-gradient(
-                90deg,
-                #2277ff,
-                #c125e8
-            );
-
+            background: linear-gradient(90deg, #2277ff, #c125e8);
             color: white !important;
-
             padding: 12px 21px;
-
             border-radius: 30px;
         }
 
@@ -90,31 +71,22 @@
 
         .booking-section {
             min-height: calc(100vh - 90px);
-
             padding: 35px 20px 60px;
-
             text-align: center;
-
             background: #f5f6ff;
         }
 
         .subtitle {
             color: #c126e8;
-
             font-size: 13px;
-
             font-weight: 700;
-
             letter-spacing: 1px;
-
             margin-bottom: 12px;
         }
 
         h1 {
             font-size: 42px;
-
             color: #101b3c;
-
             margin-bottom: 45px;
         }
 
@@ -122,30 +94,47 @@
 
         .booking-card {
             width: 780px;
-
             max-width: 95%;
-
             margin: auto;
-
             background: white;
-
             padding: 45px;
-
             border-radius: 28px;
-
             text-align: left;
+            box-shadow: 0 15px 45px rgba(42, 57, 120, 0.10);
+        }
 
-            box-shadow:
-                0 15px 45px rgba(42, 57, 120, 0.10);
+        /* ================= MESSAGES ================= */
+
+        .success-message {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 15px 18px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            border: 1px solid #a7f3d0;
+        }
+
+        .error-message {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 15px 18px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            border: 1px solid #fecaca;
+        }
+
+        .error-message ul {
+            margin: 0;
+            padding-left: 20px;
         }
 
         /* ================= FORM ================= */
 
         .form-grid {
             display: grid;
-
             grid-template-columns: 1fr 1fr;
-
             gap: 24px;
         }
 
@@ -155,11 +144,8 @@
 
         label {
             display: block;
-
             font-size: 15px;
-
             font-weight: 600;
-
             margin-bottom: 9px;
         }
 
@@ -171,17 +157,11 @@
         select,
         textarea {
             width: 100%;
-
             border: 1px solid #dfe4ef;
-
             border-radius: 12px;
-
             padding: 13px 14px;
-
             font-size: 15px;
-
             outline: none;
-
             background: white;
         }
 
@@ -198,19 +178,14 @@
 
         small {
             display: block;
-
             margin-top: 8px;
-
             color: #667085;
-
             font-size: 13px;
         }
 
         select:disabled {
             background: #e9edf3;
-
             color: #4d5566;
-
             cursor: not-allowed;
         }
 
@@ -220,76 +195,38 @@
 
         textarea {
             min-height: 95px;
-
             resize: vertical;
-        }
-
-        /* ================= SUCCESS MESSAGE ================= */
-
-        .success-message {
-            background: #d1fae5;
-
-            color: #065f46;
-
-            padding: 15px;
-
-            border-radius: 10px;
-
-            margin-bottom: 20px;
-
-            font-weight: 600;
-        }
-
-        .view-appointment-btn {
-            display: inline-block;
-
-            margin-top: 12px;
-
-            padding: 10px 18px;
-
-            background: #101b3c;
-
-            color: white;
-
-            text-decoration: none;
-
-            border-radius: 8px;
-
-            font-size: 14px;
-
-            font-weight: 600;
-        }
-
-        .view-appointment-btn:hover {
-            opacity: 0.9;
         }
 
         /* ================= BUTTON ================= */
 
         .confirm-btn {
             width: 100%;
-
             height: 52px;
-
             margin-top: 25px;
-
             border: none;
-
             border-radius: 13px;
-
-            background: linear-gradient(
-                90deg,
-                #1677ff,
-                #c126e8
-            );
-
+            background: linear-gradient(90deg, #1677ff, #c126e8);
             color: white;
-
             font-size: 17px;
-
             font-weight: 700;
-
             cursor: pointer;
+        }
+
+        .confirm-btn:hover {
+            opacity: 0.95;
+        }
+
+        .view-appointment-btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 18px;
+            background: #101b3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
         }
 
         /* ================= MOBILE ================= */
@@ -298,17 +235,13 @@
 
             .navbar {
                 height: auto;
-
                 padding: 20px;
-
                 flex-direction: column;
-
                 gap: 20px;
             }
 
             .nav-links {
                 flex-wrap: wrap;
-
                 justify-content: center;
             }
 
@@ -323,16 +256,11 @@
             h1 {
                 font-size: 32px;
             }
-
         }
-
     </style>
-
 </head>
 
-
 <body>
-
 
     <!-- ================= NAVBAR ================= -->
 
@@ -352,7 +280,7 @@
                 Services ▼
             </a>
 
-            <a href="#">
+            <a href="/book-now">
                 Book Now
             </a>
 
@@ -392,7 +320,6 @@
 
         <div class="booking-card">
 
-
             <!-- ================= SUCCESS MESSAGE ================= -->
 
             @if(session('success'))
@@ -419,19 +346,9 @@
 
             @if($errors->any())
 
-                <div style="
-                    background:#fee2e2;
-                    color:#991b1b;
-                    padding:15px;
-                    border-radius:10px;
-                    margin-bottom:20px;
-                ">
+                <div class="error-message">
 
-                    <ul style="
-                        margin:0;
-                        padding-left:20px;
-                    ">
-
+                    <ul>
                         @foreach($errors->all() as $error)
 
                             <li>
@@ -439,7 +356,6 @@
                             </li>
 
                         @endforeach
-
                     </ul>
 
                 </div>
@@ -447,11 +363,12 @@
             @endif
 
 
-            <!-- ================= FORM ================= -->
+            <!-- ================= BOOKING FORM ================= -->
 
             <form
-                method="POST"
                 action="{{ route('booking.store') }}"
+                method="POST"
+                id="bookingForm"
             >
 
                 @csrf
@@ -459,13 +376,9 @@
 
                 <div class="form-grid">
 
-
                     <!-- ================= FULL NAME ================= -->
 
-                    <div
-                        class="form-group"
-                        style="position: relative;"
-                    >
+                    <div class="form-group">
 
                         <label>
                             Full Name <span>*</span>
@@ -473,35 +386,14 @@
 
                         <input
                             type="text"
-                            id="customerName"
-                            name="customer_name"
-                            autocomplete="off"
-                            placeholder="Search your name"
+                            name="full_name"
+                            value="{{ old('full_name', auth()->user()->name ?? '') }}"
+                            placeholder="Enter your full name"
                             required
                         >
 
-
-                        <div
-                            id="customerSuggestions"
-                            style="
-                                position: absolute;
-                                top: 78px;
-                                left: 0;
-                                width: 100%;
-                                background: white;
-                                border: 1px solid #dfe4ef;
-                                border-radius: 10px;
-                                display: none;
-                                z-index: 1000;
-                                max-height: 180px;
-                                overflow-y: auto;
-                            "
-                        >
-                        </div>
-
-
                         <small>
-                            Search your name if you have booked before.
+                            Enter your full name.
                         </small>
 
                     </div>
@@ -517,9 +409,9 @@
 
                         <input
                             type="email"
-                            id="customerEmail"
                             name="email"
-                            placeholder="Your email"
+                            value="{{ old('email', auth()->user()->email ?? '') }}"
+                            placeholder="Enter your email"
                             required
                         >
 
@@ -536,7 +428,6 @@
 
                         <select
                             id="serviceType"
-                            name="service_type"
                             required
                         >
 
@@ -544,8 +435,8 @@
                                 Select...
                             </option>
 
-                            <option value="parlor">
-                                Parlor
+                            <option value="doctor">
+                                Doctor
                             </option>
 
                         </select>
@@ -562,53 +453,51 @@
                         </label>
 
                         <select
+                            name="specific_service"
                             id="specificService"
-                            name="service_id"
+                            disabled
                             required
                         >
 
                             <option value="">
-                                Select a service
+                                Choose service type first
                             </option>
-
-                            @foreach($services as $service)
-
-                                <option value="{{ $service->service_id }}">
-                                    {{ $service->service_name }}
-                                </option>
-
-                            @endforeach
 
                         </select>
 
                     </div>
 
 
-                    <!-- ================= PREFERRED PARLOR ================= -->
+                    <!-- ================= PREFERRED DOCTOR ================= -->
 
                     <div class="form-group">
 
                         <label>
-                            Preferred Parlor
+                            Preferred Doctor <span>*</span>
                         </label>
 
                         <select
-                            name="parlor_id"
-                            id="parlorSelect"
+                            name="provider_id"
+                            id="doctor"
+                            required
                         >
 
                             <option value="">
-                                Any Available
+                                Select Doctor
                             </option>
 
-
-                            @foreach($parlors as $parlor)
+                            @foreach(
+                                \App\Models\Provider::where('status', 1)
+                                    ->orderBy('id')
+                                    ->get()
+                                as $doctor
+                            )
 
                                 <option
-                                    value="{{ $parlor->parlor_id }}"
-                                    data-services="{{ $parlor->services->pluck('service_id')->implode(',') }}"
+                                    value="{{ $doctor->id }}"
+                                    {{ old('provider_id') == $doctor->id ? 'selected' : '' }}
                                 >
-                                    {{ $parlor->name }}
+                                    {{ $doctor->name }}
                                 </option>
 
                             @endforeach
@@ -628,8 +517,20 @@
 
                         <input
                             type="datetime-local"
-                            name="appointment_datetime"
+                            id="appointmentDateTime"
                             required
+                        >
+
+                        <input
+                            type="hidden"
+                            name="appointment_date"
+                            id="appointment_date"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="appointment_time"
+                            id="appointment_time"
                         >
 
                     </div>
@@ -646,14 +547,14 @@
                     </label>
 
                     <textarea
-                        name="note"
-                        placeholder="Any additional information..."
-                    ></textarea>
+                        name="notes"
+                        placeholder="Write any additional information..."
+                    >{{ old('notes') }}</textarea>
 
                 </div>
 
 
-                <!-- ================= BUTTON ================= -->
+                <!-- ================= CONFIRM BUTTON ================= -->
 
                 <button
                     type="submit"
@@ -662,9 +563,7 @@
                     Confirm Booking
                 </button>
 
-
             </form>
-
 
         </div>
 
@@ -675,225 +574,115 @@
 
     <script>
 
+        /* ================= SERVICE TYPE ================= */
 
-        /* =========================================
-           CUSTOMER SEARCH
-        ========================================= */
+        const serviceType =
+            document.getElementById('serviceType');
 
-        const customerName =
-            document.getElementById('customerName');
-
-        const customerEmail =
-            document.getElementById('customerEmail');
-
-        const customerSuggestions =
-            document.getElementById('customerSuggestions');
+        const specificService =
+            document.getElementById('specificService');
 
 
-        customerName.addEventListener('input', function () {
+        serviceType.addEventListener('change', function () {
 
-            const search =
-                this.value.trim();
+            specificService.innerHTML = '';
 
 
-            if (search.length < 2) {
+            if (this.value === '') {
 
-                customerSuggestions.style.display = 'none';
+                specificService.disabled = true;
 
-                customerSuggestions.innerHTML = '';
+                specificService.innerHTML =
+                    '<option value="">Choose service type first</option>';
 
                 return;
+            }
+
+
+            specificService.disabled = false;
+
+
+            let services = [];
+
+
+            /* DOCTOR SERVICES */
+
+            if (this.value === 'doctor') {
+
+                services = [
+                    'General Physician',
+                    'Dentist',
+                    'Cardiologist',
+                    'Dermatologist'
+                ];
 
             }
 
 
-            fetch(
-                "{{ route('customer.search') }}?search="
-                + encodeURIComponent(search)
-            )
+            services.forEach(function(service) {
 
-            .then(response => response.json())
+                const option =
+                    document.createElement('option');
 
-            .then(customers => {
+                option.value = service;
 
-                customerSuggestions.innerHTML = '';
+                option.textContent = service;
 
-
-                if (customers.length === 0) {
-
-                    customerSuggestions.style.display = 'none';
-
-                    return;
-
-                }
-
-
-                customers.forEach(customer => {
-
-                    const item =
-                        document.createElement('div');
-
-
-                    item.style.padding = '12px 14px';
-
-                    item.style.cursor = 'pointer';
-
-                    item.style.borderBottom =
-                        '1px solid #eeeeee';
-
-
-                    item.innerHTML = `
-                        <strong>${customer.customer_name}</strong><br>
-                        <small>${customer.email}</small>
-                    `;
-
-
-                    item.addEventListener(
-                        'click',
-                        function () {
-
-                            customerName.value =
-                                customer.customer_name;
-
-                            customerEmail.value =
-                                customer.email;
-
-                            customerSuggestions.style.display =
-                                'none';
-
-                        }
-                    );
-
-
-                    customerSuggestions.appendChild(item);
-
-                });
-
-
-                customerSuggestions.style.display =
-                    'block';
-
-            })
-
-            .catch(error => {
-
-                console.error(
-                    'Customer search error:',
-                    error
-                );
+                specificService.appendChild(option);
 
             });
 
         });
 
 
-        /* =========================================
-           CLOSE CUSTOMER SUGGESTIONS
-        ========================================= */
+        /* ================= DATE & TIME ================= */
 
-        document.addEventListener(
-            'click',
-            function (event) {
+        const bookingForm =
+            document.getElementById('bookingForm');
 
-                if (
-                    !customerName.contains(event.target) &&
-                    !customerSuggestions.contains(event.target)
-                ) {
+        const appointmentDateTime =
+            document.getElementById('appointmentDateTime');
 
-                    customerSuggestions.style.display =
-                        'none';
+        const appointmentDate =
+            document.getElementById('appointment_date');
 
-                }
+        const appointmentTime =
+            document.getElementById('appointment_time');
 
+
+        bookingForm.addEventListener('submit', function () {
+
+            if (!appointmentDateTime.value) {
+                return;
             }
-        );
 
 
-        /* =========================================
-           SERVICE → PARLOR FILTER
-        ========================================= */
-
-        const serviceSelect =
-            document.getElementById('specificService');
-
-        const parlorSelect =
-            document.getElementById('parlorSelect');
+            const parts =
+                appointmentDateTime.value.split('T');
 
 
-        serviceSelect.addEventListener(
-            'change',
-            function () {
+            /*
+             * Date:
+             * 2026-09-20
+             */
 
-                const selectedService =
-                    this.value;
-
-
-                const options =
-                    parlorSelect.querySelectorAll('option');
+            appointmentDate.value =
+                parts[0];
 
 
-                options.forEach(option => {
+            /*
+             * Time:
+             * 10:00
+             *
+             * Controller expects H:i
+             */
 
+            appointmentTime.value =
+                parts[1];
 
-                    /* Any Available */
-
-                    if (option.value === '') {
-
-                        option.style.display = '';
-
-                        return;
-
-                    }
-
-
-                    const services =
-                        option.dataset.services
-                            ? option.dataset.services.split(',')
-                            : [];
-
-
-                    /* No service selected */
-
-                    if (!selectedService) {
-
-                        option.style.display = '';
-
-                        return;
-
-                    }
-
-
-                    /* Service available in parlor */
-
-                    if (
-                        services.includes(selectedService)
-                    ) {
-
-                        option.style.display = '';
-
-                    }
-
-
-                    /* Service not available */
-
-                    else {
-
-                        option.style.display = 'none';
-
-                    }
-
-                });
-
-
-                /* Reset selected parlor */
-
-                parlorSelect.value = '';
-
-            }
-        );
+        });
 
     </script>
-
 
 </body>
 

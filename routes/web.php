@@ -28,7 +28,7 @@ Route::post('/logout', [AuthController::class, 'logout']);
 // Book Now page
 Route::get('/book-now', function () {
     return view('book-now');
-})->middleware('auth')->name('book.now');
+})->name('book.now');
 
 // Appointment booking
 Route::post('/appointments', [AppointmentController::class, 'store'])

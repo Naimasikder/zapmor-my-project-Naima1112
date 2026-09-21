@@ -361,15 +361,14 @@
                 </div>
 
             @endif
-
-
+            
             <!-- ================= BOOKING FORM ================= -->
 
             <form
-                action="{{ route('booking.store') }}"
-                method="POST"
-                id="bookingForm"
-            >
+             action="{{ route('booking.store') }}"
+             method="POST"
+             id="bookingForm"
+             >
 
                 @csrf
 
@@ -650,37 +649,19 @@
             document.getElementById('appointment_time');
 
 
-        bookingForm.addEventListener('submit', function () {
+        bookingForm.addEventListener('submit', function (event) {
 
-            if (!appointmentDateTime.value) {
-                return;
-            }
+    if (!appointmentDateTime.value) {
+        event.preventDefault();
+        alert('Please select Date & Time.');
+        return;
+    }
 
+    const parts = appointmentDateTime.value.split('T');
 
-            const parts =
-                appointmentDateTime.value.split('T');
-
-
-            /*
-             * Date:
-             * 2026-09-20
-             */
-
-            appointmentDate.value =
-                parts[0];
-
-
-            /*
-             * Time:
-             * 10:00
-             *
-             * Controller expects H:i
-             */
-
-            appointmentTime.value =
-                parts[1];
-
-        });
+    appointmentDate.value = parts[0];
+    appointmentTime.value = parts[1];
+});
 
     </script>
 

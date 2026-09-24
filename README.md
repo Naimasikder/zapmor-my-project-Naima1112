@@ -1,59 +1,126 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Zapmor - Healthcare Appointment Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Project Overview
 
-## About Laravel
+Zapmor is a web-based healthcare appointment management system developed using Laravel, PHP, and MySQL. The system is designed to help users register, log in, and manage doctor appointments through an easy-to-use web interface.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## My Contributions
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+I worked on the following features and functionalities of the project:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 1. Authentication System
+* Implemented user registration.
+* Implemented user login and logout.
+* Added authentication using Laravel Auth.
+* Added session regeneration after login.
+* Added secure session invalidation during logout.
+* Added validation for registration and login forms.
+* Prevented duplicate email registration.
+* Automatically logged in users after successful registration.
 
-## Learning Laravel
+### 2. User Role Management
+* Added a `role` field to the users table.
+* Added `patient` as the default user role.
+* Added `admin` role support.
+* Implemented role-based access control for admin users.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 3. Doctor Appointment Booking
+* Implemented doctor appointment booking functionality.
+* Connected appointments with users, doctors, and services.
+* Added appointment date and time selection.
+* Added appointment notes.
+* Set newly booked appointments to `pending` status.
+* Added validation for appointment information.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 4. Appointment Validation
+Implemented validation to ensure:
 
-## Laravel Sponsors
+* Appointment date cannot be in the past.
+* Selected doctor must exist and be active.
+* Selected service must exist and be active.
+* Patient email must match the logged-in account.
+* Required appointment information must be provided.
+* The same doctor cannot have multiple active appointments at the same date and time.
+* Cancelled appointment time slots can be booked again.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 5. Patient Appointment Management
+* Created the "My Appointments" functionality.
+* Patients can view their own appointments.
+* Displayed doctor, service, date, time, and appointment status.
+* Added appointment search functionality.
+* Added appointment cancellation.
+* Restricted patients so they can only manage their own appointments.
 
-### Premium Partners
+### 6. Appointment Status Management
+Implemented appointment status management with the following statuses:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+* Pending
+* Confirmed
+* Cancelled
+* Completed
+Patients can cancel their appointments, while administrators can update appointment statuses.
 
-## Contributing
+### 7. Admin Appointment Management
+* Created an admin appointment dashboard.
+* Displayed all patient appointments.
+* Displayed patient information.
+* Displayed doctor and service information.
+* Displayed appointment date and time.
+* Displayed appointment status.
+* Added functionality to update appointment status.
+* Added support for confirming, cancelling, and completing appointments.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 8. Admin Middleware
+* Created custom `AdminMiddleware`.
+* Protected admin routes from unauthorized users.
+* Allowed only users with the `admin` role to access the admin appointment section.
+* Added authentication checks for protected admin routes.
 
-## Code of Conduct
+### 9. Database Development
+Worked on the database structure required for the appointment management system.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+* Added user role migration.
+* Worked with the `appointments` table.
+* Connected appointments with users.
+* Connected appointments with doctors/providers.
+* Connected appointments with services.
+* Implemented Eloquent model relationships.
+* Added appointment status management in the database.
 
-## Security Vulnerabilities
+### 10. Doctor and Service Integration
+* Integrated doctors/providers with the appointment booking system.
+* Integrated services with appointments.
+* Added active doctor and service verification.
+* Added doctor information retrieval for the booking system.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 11. Frontend Development
+Worked on the frontend interfaces related to my features.
 
-## License
+* Created and styled the registration page.
+* Worked on the login interface.
+* Added Login/Register navigation.
+* Added Logout functionality to the navigation.
+* Created and styled the Admin Appointment page.
+* Added appointment status badges.
+* Added responsive styling for the admin appointment table.
+* Added navigation between relevant pages.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 12. Laravel Routes and Controllers
+* Added and updated routes for authentication.
+* Added appointment booking routes.
+* Added appointment listing routes.
+* Added appointment cancellation routes.
+* Added doctor data routes.
+* Added admin appointment routes.
+* Developed and updated controllers for authentication and appointment management.
+
+### Technologies Used
+* Laravel 12
+* PHP
+* MySQL
+* Blade
+* HTML
+* CSS
+* JavaScript
+* Git
+* GitHub

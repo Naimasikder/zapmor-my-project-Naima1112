@@ -18,8 +18,8 @@
         <div class="nav-container">
 
             <!-- Logo -->
-            <a href="#" class="logo">
-                Zapmor
+            <a href="{{ route('home') }}" class="logo">
+                 Zapmor
             </a>
 
             <!-- Navigation -->
@@ -36,11 +36,28 @@
 
                 <a href="#">About</a>
 
-                <a href="#">Contact</a>
-
-                <a href="#" class="login-btn">
+                <a href="{{ route('contact') }}">Contact</a>
+                @guest
+                <a href="{{ route('login') }}" class="login-btn">
                     Login
                 </a>
+                @endguest
+                
+                @auth
+
+                @if (auth()->user()->role === 'admin')
+                <a href="{{ route('admin.appointments.index') }}">
+                    Admin Appointments
+                </a>
+                @endif
+
+                <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                    @csrf
+                    <button type="submit" class="login-btn">
+                        Logout
+                    </button>
+                </form>
+                @endauth
 
                 <a href="#" class="app-btn">
                     <span class="play-icon">▶</span>

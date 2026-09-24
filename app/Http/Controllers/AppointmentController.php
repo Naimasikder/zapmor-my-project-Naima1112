@@ -12,11 +12,12 @@ use Illuminate\Validation\Rule;
 class AppointmentController extends Controller
 {
     /**
-     * Display all appointments.
+     * Display the logged-in user's appointments.
      */
     public function index()
     {
         $appointments = Appointment::with(['provider', 'service'])
+            ->where('user_id', Auth::id())
             ->latest()
             ->get();
 
@@ -43,9 +44,19 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
-
         $validated = $request->validate([
+            'full_name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+            ],
+
             'provider_id' => [
                 'required',
                 'exists:providers,id',
@@ -59,6 +70,7 @@ class AppointmentController extends Controller
             'appointment_date' => [
                 'required',
                 'date',
+                'after_or_equal:today',
             ],
 
             'appointment_time' => [
@@ -77,10 +89,39 @@ class AppointmentController extends Controller
                     }),
             ],
 
-            'notes' => 'nullable|string',
+            'notes' => [
+                'nullable',
+                'string',
+                'max:1000',
+            ],
         ]);
 
-        // Find selected service from database
+        $user = Auth::user();
+
+        /*
+         * The booking email must match
+         * the logged-in user's account.
+         */
+        if ($user->email !== $validated['email']) {
+            return back()
+                ->withErrors([
+                    'email' =>
+                        'The email must match your logged-in account.',
+                ])
+                ->withInput();
+        }
+
+        /*
+         * Keep the logged-in user's name updated.
+         */
+        if ($user->name !== $validated['full_name']) {
+            $user->name = $validated['full_name'];
+            $user->save();
+        }
+
+        /*
+         * Find selected active service.
+         */
         $service = Service::where('name', $validated['specific_service'])
             ->where('status', 1)
             ->first();
@@ -95,10 +136,29 @@ class AppointmentController extends Controller
                 ->withInput();
         }
 
-        // Create appointment
+        /*
+         * Find selected active doctor.
+         */
+        $provider = Provider::where('id', $validated['provider_id'])
+            ->where('status', 1)
+            ->first();
+
+        if (!$provider) {
+            return redirect()
+                ->route('book.now')
+                ->withErrors([
+                    'provider_id' =>
+                        'Selected doctor is not available.',
+                ])
+                ->withInput();
+        }
+
+        /*
+         * Create appointment.
+         */
         Appointment::create([
             'user_id' => $user->id,
-            'provider_id' => $validated['provider_id'],
+            'provider_id' => $provider->id,
             'service_id' => $service->id,
             'appointment_date' => $validated['appointment_date'],
             'appointment_time' => $validated['appointment_time'],
@@ -115,36 +175,35 @@ class AppointmentController extends Controller
     }
 
     /**
-     * Update appointment status.
+     * Cancel an appointment.
      */
     public function updateStatus(
         Request $request,
         Appointment $appointment
     ) {
+        /*
+         * Users can only modify their own appointment.
+         */
+        if ($appointment->user_id !== Auth::id()) {
+            abort(403);
+        }
+
         $validated = $request->validate([
-            'status' =>
-                'required|in:pending,confirmed,completed,cancelled',
+            'status' => [
+                'required',
+                'in:cancelled',
+            ],
         ]);
 
         $appointment->update([
             'status' => $validated['status'],
         ]);
 
-        return response()->json([
-            'message' => 'Appointment status updated successfully',
-            'appointment' => $appointment,
-        ]);
-    }
-
-    /**
-     * Delete an appointment.
-     */
-    public function destroy(Appointment $appointment)
-    {
-        $appointment->delete();
-
         return redirect()
             ->route('appointments.index')
-            ->with('success', 'Appointment deleted successfully!');
+            ->with(
+                'success',
+                'Appointment cancelled successfully!'
+            );
     }
 }

@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>My Appointments - Zapmor</title>
+    <title>Appointment Management - Zapmor</title>
 
     <style>
         * {
@@ -36,22 +35,12 @@
         .subtitle {
             color: #0b1325;
             margin-bottom: 30px;
-            font-size: 20px;
+            font-size: 22px;
         }
 
         .success-message {
             background: #d1fae5;
             color: #065f46;
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .error-message {
-            background: #fee2e2;
-            color: #991b1b;
             padding: 15px 20px;
             border-radius: 10px;
             margin-bottom: 25px;
@@ -88,7 +77,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 1050px;
+            min-width: 1000px;
         }
 
         th {
@@ -96,15 +85,15 @@
             color: #101b3c;
             text-align: left;
             padding: 16px;
-            font-size: 17px;
+            font-size: 19px;
             font-weight: 700;
             white-space: nowrap;
         }
 
         td {
-            padding: 18px 16px;
+            padding: 19px;
             border-bottom: 1px solid #eee;
-            font-size: 16px;
+            font-size: 17px;
             vertical-align: middle;
         }
 
@@ -119,49 +108,6 @@
 
         .customer-email {
             color: #667085;
-            margin-top: 5px;
-        }
-
-        .doctor-name {
-            font-weight: 700;
-            color: #10182f;
-        }
-
-        .service-name {
-            color: #475467;
-        }
-
-        .date-time {
-            white-space: nowrap;
-        }
-
-        .status {
-            display: inline-block;
-            padding: 7px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: capitalize;
-        }
-
-        .status-pending {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .status-confirmed {
-            background: #dbeafe;
-            color: #1e40af;
-        }
-
-        .status-completed {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .status-cancelled {
-            background: #fee2e2;
-            color: #991b1b;
         }
 
         .details-btn {
@@ -179,7 +125,7 @@
             opacity: .9;
         }
 
-        .cancel-btn {
+        .delete-btn {
             padding: 9px 15px;
             border: none;
             border-radius: 8px;
@@ -190,13 +136,8 @@
             cursor: pointer;
         }
 
-        .cancel-btn:hover {
+        .delete-btn:hover {
             opacity: .9;
-        }
-
-        .cancelled-text {
-            color: #991b1b;
-            font-weight: 600;
         }
 
         .no-data {
@@ -235,10 +176,10 @@
 
 <div class="container">
 
-    <h1>My Appointments</h1>
+    <h1>Parlor Appointment Management</h1>
 
     <p class="subtitle">
-        View and manage your appointments
+        Manage all customer appointments
     </p>
 
     @if(session('success'))
@@ -247,23 +188,12 @@
         </div>
     @endif
 
-    @if(session('error'))
-        <div class="error-message">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    @if($errors->any())
-        <div class="error-message">
-            {{ $errors->first() }}
-        </div>
-    @endif
-
+    <!-- Search -->
     <div class="filters">
         <input
             type="text"
             id="searchInput"
-            placeholder="Search doctor or service..."
+            placeholder="Search customer name or email..."
         >
     </div>
 
@@ -275,11 +205,11 @@
 
                 <thead>
                     <tr>
-                        <th>Doctor</th>
+                        <th>Customer</th>
+                        <th>Email</th>
+                        <th>Parlor</th>
                         <th>Service</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Status</th>
+                        <th>Date & Time</th>
                         <th>Details</th>
                         <th>Action</th>
                     </tr>
@@ -287,96 +217,80 @@
 
                 <tbody>
 
-                @foreach($appointments as $appointment)
+                    @foreach($appointments as $appointment)
 
-                    <tr>
+                        <tr>
 
-                        <td>
-                            <div class="doctor-name">
-                                {{ $appointment->provider?->name ?? 'N/A' }}
-                            </div>
-                        </td>
+                            <td>
+                                <div class="customer-name">
+                                    {{ $appointment->customer_name }}
+                                </div>
+                            </td>
 
-                        <td>
-                            <div class="service-name">
-                                {{ $appointment->service?->name ?? 'N/A' }}
-                            </div>
-                        </td>
+                            <td>
+                                <div class="customer-email">
+                                    {{ $appointment->email }}
+                                </div>
+                            </td>
 
-                        <td>
-                            {{ $appointment->appointment_date?->format('d M Y') }}
-                        </td>
+                            <td>
+                                {{ $appointment->parlor?->name ?? 'Any Available' }}
+                            </td>
 
-                        <td class="date-time">
-                            {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}
-                        </td>
+                            <td>
+                                {{ $appointment->service?->service_name ?? 'N/A' }}
+                            </td>
 
-                        <td>
-                            <span class="status status-{{ $appointment->status }}">
-                                {{ $appointment->status }}
-                            </span>
-                        </td>
+                            <td>
+                                {{ $appointment->appointment_datetime->format('d M Y, h:i A') }}
+                            </td>
 
-                        <td>
+                            <!-- View -->
+                            <td>
 
-                            <button
-                                type="button"
-                                class="details-btn"
-                                onclick="showAppointmentDetails(
-                                    '{{ addslashes($appointment->provider?->name ?? 'N/A') }}',
-                                    '{{ addslashes($appointment->service?->name ?? 'N/A') }}',
-                                    '{{ $appointment->appointment_date?->format('d M Y') }}',
-                                    '{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}',
-                                    '{{ addslashes($appointment->notes ?? 'No note') }}',
-                                    '{{ addslashes($appointment->status) }}'
-                                )"
-                            >
-                                View
-                            </button>
+                                <button
+                                    type="button"
+                                    class="details-btn"
+                                    onclick="showAppointmentDetails(
+                                        '{{ addslashes($appointment->customer_name) }}',
+                                        '{{ addslashes($appointment->email) }}',
+                                        '{{ addslashes($appointment->parlor?->name ?? 'Any Available') }}',
+                                        '{{ addslashes($appointment->service?->service_name ?? 'N/A') }}',
+                                        '{{ $appointment->appointment_datetime->format('d M Y, h:i A') }}',
+                                        '{{ addslashes($appointment->note ?? 'No note') }}'
+                                    )"
+                                >
+                                    View
+                                </button>
 
-                        </td>
+                            </td>
 
-                        <td>
-
-                            @if($appointment->status !== 'cancelled')
+                            <!-- Delete -->
+                            <td>
 
                                 <form
                                     method="POST"
-                                    action="{{ route('appointments.updateStatus', $appointment) }}"
-                                    onsubmit="return confirm('Are you sure you want to cancel this appointment?');"
+                                    action="{{ route('appointments.destroy', $appointment->appointment_id) }}"
+                                    onsubmit="return confirm('Are you sure you want to delete this appointment?');"
                                 >
 
                                     @csrf
-                                    @method('PATCH')
-
-                                    <input
-                                        type="hidden"
-                                        name="status"
-                                        value="cancelled"
-                                    >
+                                    @method('DELETE')
 
                                     <button
                                         type="submit"
-                                        class="cancel-btn"
+                                        class="delete-btn"
                                     >
-                                        Cancel
+                                        Delete
                                     </button>
 
                                 </form>
 
-                            @else
+                            </td>
 
-                                <span class="cancelled-text">
-                                    Cancelled
-                                </span>
+                        </tr>
 
-                            @endif
-
-                        </td>
-
-                    </tr>
-
-                @endforeach
+                    @endforeach
 
                 </tbody>
 
@@ -385,7 +299,7 @@
         @else
 
             <div class="no-data">
-                You have no appointments yet.
+                No appointments found.
             </div>
 
         @endif
@@ -397,6 +311,7 @@
 
 <script>
 
+    // Search customer
     const searchInput = document.getElementById('searchInput');
 
     function filterAppointments() {
@@ -409,20 +324,21 @@
 
         rows.forEach(row => {
 
-            const doctor =
-                row.cells[0].innerText.toLowerCase();
+            const customer =
+                row.cells[0].innerText.toLowerCase().trim();
 
-            const service =
-                row.cells[1].innerText.toLowerCase();
+            const email =
+                row.cells[1].innerText.toLowerCase().trim();
 
             const matchesSearch =
-                doctor.includes(searchValue) ||
-                service.includes(searchValue);
+                customer.includes(searchValue) ||
+                email.includes(searchValue);
 
             row.style.display =
                 matchesSearch ? '' : 'none';
 
         });
+
     }
 
     searchInput.addEventListener(
@@ -431,22 +347,23 @@
     );
 
 
+    // Appointment details
     function showAppointmentDetails(
-        doctor,
+        customer,
+        email,
+        parlor,
         service,
-        date,
-        time,
-        notes,
-        status
+        dateTime,
+        note
     ) {
 
         alert(
-            'Doctor: ' + doctor +
+            'Customer: ' + customer +
+            '\nEmail: ' + email +
+            '\nParlor: ' + parlor +
             '\nService: ' + service +
-            '\nDate: ' + date +
-            '\nTime: ' + time +
-            '\nStatus: ' + status +
-            '\nNotes: ' + notes
+            '\nDate & Time: ' + dateTime +
+            '\nNote: ' + note
         );
 
     }

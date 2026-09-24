@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -20,17 +19,15 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
+            'password' => $validated['password'],
         ]);
 
         Auth::login($user);
 
         $request->session()->regenerate();
 
-        return response()->json([
-            'message' => 'Registration successful',
-            'user' => $user,
-        ], 201);
+        return redirect('/')
+            ->with('success', 'Registration successful!');
     }
 
     public function login(Request $request)
@@ -41,17 +38,18 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+
             $request->session()->regenerate();
 
-            return response()->json([
-                'message' => 'Login successful',
-                'user' => Auth::user(),
-            ]);
+            return redirect('/')
+                ->with('success', 'Login successful!');
         }
 
-        return response()->json([
-            'message' => 'Invalid email or password',
-        ], 401);
+        return back()
+            ->withErrors([
+                'email' => 'The email or password is incorrect.',
+            ])
+            ->withInput($request->only('email'));
     }
 
     public function logout(Request $request)
@@ -59,10 +57,10 @@ class AuthController extends Controller
         Auth::logout();
 
         $request->session()->invalidate();
+
         $request->session()->regenerateToken();
 
-        return response()->json([
-            'message' => 'Logout successful',
-        ]);
+        return redirect('/')
+            ->with('success', 'Logout successful!');
     }
 }
